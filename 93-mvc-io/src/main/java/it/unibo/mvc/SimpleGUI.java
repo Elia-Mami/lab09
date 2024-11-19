@@ -37,7 +37,6 @@ public final class SimpleGUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controller.setNextString(text.getText());
-                textArea.setText(controller.getNextString());
                 controller.printCurrentString();
             }
         });
