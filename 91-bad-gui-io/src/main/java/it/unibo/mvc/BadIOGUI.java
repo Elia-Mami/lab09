@@ -11,7 +11,9 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -39,12 +41,24 @@ public class BadIOGUI {
      * Creates a new BadIOGUI.
      */
     public BadIOGUI() {
+        System.out.println(PATH);
         final JPanel canvas = new JPanel();
         canvas.setLayout(new BorderLayout());
+        
+        final JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+        canvas.add(panel, BorderLayout.CENTER);
+
         final JButton write = new JButton("Write on file");
-        canvas.add(write, BorderLayout.CENTER);
+        //canvas.add(write, BorderLayout.CENTER);
+        panel.add(write);
+        final JButton read = new JButton("Read file");
+        panel.add(read);
+
+
         frame.setContentPane(canvas);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
         /*
          * Handlers
          */
@@ -66,6 +80,24 @@ public class BadIOGUI {
                 }
             }
         });
+
+        read.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try{
+                    final List<String> lines = Files.readAllLines(new File(PATH).toPath());
+                    for (final String line : lines) {
+                        System.out.println(line);
+                    }
+                }
+                catch (IOException e2) {
+                    JOptionPane.showMessageDialog(frame, e2, "Error", JOptionPane.ERROR_MESSAGE);
+                    e2.printStackTrace(); // NOPMD: allowed as this is just an exercise
+                }
+            }
+            
+        });
     }
 
     private void display() {
@@ -77,10 +109,13 @@ public class BadIOGUI {
          * issue). It is MUCH better than manually specify the size of a window
          * in pixel: it takes into account the current resolution.
          */
-        final Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-        final int sw = (int) screen.getWidth();
-        final int sh = (int) screen.getHeight();
-        frame.setSize(sw / PROPORTION, sh / PROPORTION);
+
+        // final Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+        // final int sw = (int) screen.getWidth();
+        // final int sh = (int) screen.getHeight();
+        // frame.setSize(sw / PROPORTION, sh / PROPORTION);
+        
+        frame.pack();
         /*
          * Instead of appearing at (0,0), upper left corner of the screen, this
          * flag makes the OS window manager take care of the default positioning
