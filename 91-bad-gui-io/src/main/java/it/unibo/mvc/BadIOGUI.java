@@ -6,14 +6,14 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.Toolkit;
+// import java.awt.Dimension;
+// import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.FileInputStream;
+// import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
+// import java.io.InputStream;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -33,7 +33,7 @@ public class BadIOGUI {
     private static final String PATH = System.getProperty("user.home")
             + File.separator
             + BadIOGUI.class.getSimpleName() + ".txt";
-    private static final int PROPORTION = 5;
+    // private static final int PROPORTION = 5;
     private final Random randomGenerator = new Random();
     private final JFrame frame = new JFrame(TITLE);
 
@@ -41,24 +41,19 @@ public class BadIOGUI {
      * Creates a new BadIOGUI.
      */
     public BadIOGUI() {
-        System.out.println(PATH);
+        // System.out.println(PATH);
         final JPanel canvas = new JPanel();
         canvas.setLayout(new BorderLayout());
-        
         final JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
         canvas.add(panel, BorderLayout.CENTER);
-
         final JButton write = new JButton("Write on file");
         //canvas.add(write, BorderLayout.CENTER);
         panel.add(write);
         final JButton read = new JButton("Read file");
         panel.add(read);
-
-
         frame.setContentPane(canvas);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
         /*
          * Handlers
          */
